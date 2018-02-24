@@ -1,3 +1,3 @@
 # debt-management
 
-A platform for minimizing monthly debt.
+A program for minimizing monthly debt.
