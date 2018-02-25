@@ -1,5 +1,5 @@
 from debtman.debt import sum_of_monthly_payments, find_ratio, reach_28, savings_goal
-
+from pprint import pprint
 
 def _sort_by_interest(credit_lines):
     credit_lines = list(credit_lines)
@@ -11,6 +11,7 @@ def _sort_by_interest(credit_lines):
 
 
 def get_results(data):
+    pprint(data)
     sum = sum_of_monthly_payments(data['credit_lines'])
     ratio = find_ratio(data['user'], sum)
     max = 0
