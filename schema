@@ -1,0 +1,30 @@
+input data:
+
+{
+  "user": {
+    # Possibly add savings and savings goal
+    "net_income": 1000
+  },
+  "credit_lines": [
+    # Credit Card
+    {
+      "min_payment": 10,
+      "interest_rate": 0.1999,
+      "compound_rate": "annual",
+      "balance": 450,
+      "deferment": True,
+      "deferment_end": Date
+    },
+    # Loans
+    {
+      "monthly_payment": 0, #This will be reassigned to proper value in debt.py sum_of_monthly_payments
+      "term": 5 * 12, # Term should be in months
+      "interest_rate": 0.07,
+      "compound_rate": "annual",
+      "balance": 14075.0,
+      "dispersement_date": Date,
+      "deferment": True,
+      "deferment_end": Date
+    }
+  ]
+}
