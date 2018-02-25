@@ -21,8 +21,13 @@ def sum_of_monthly_payments(credit_lines): #takes dictionary and calculates sum 
         if "min_payment" in line:
             total += line["min_payment"]
         else:
-            line["monthly_payment"] = loan_min_payment(line["balance"], line["term"], convert_dn_monthly(debt_per_compound(line["balance"], line["interest_rate"], line["compound_rate"]),line["compound_rate"]))
-            total += line["monthly_payment"]
+            #if the deferment is true then for interest rate send in 0
+            if line["derferment"]:
+                 line["monthly_payment"] = loan_min_payment(line["balance"], line["term"], convert_dn_monthly(debt_per_compound(line["balance"], 0, line["compound_rate"]),line["compound_rate"]))
+                 total += line["monthly_payment"]
+            else:
+                line["monthly_payment"] = loan_min_payment(line["balance"], line["term"], convert_dn_monthly(debt_per_compound(line["balance"], line["interest_rate"], line["compound_rate"]),line["compound_rate"]))
+                total += line["monthly_payment"]
     return total
 
 def loan_min_payment(balance, term, monthly_debt): #calculates the minimum loan payment to pay it off before term ends
