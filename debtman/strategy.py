@@ -24,8 +24,8 @@ def get_results(data):
     user_dct = {"sum_of_monthly_payments": sum,
                 "debt_ratio": ratio,
                 "max_monthly_payments": max,
-                "top_3_lines": _get_top_three(data['credit_lines'])#,
-                # "reach_savings_goal_in": goal
+                "top_3_lines": _get_top_three(data['credit_lines']),
+                "reach_savings_goal_in": goal
                 }
     if ratio < 28:
         # find 3 lines of credit with highest interest rate and add to user_dct and return to prioritize
@@ -34,7 +34,7 @@ def get_results(data):
         # if defered then ignore that credit line
         max = reach_28(sum, ratio, data['user'])
         user_dct["max_monthly_payments"] = max
-        # goal = savings_goal(max, sgoals, savings)
+        goal = savings_goal(max, data["user"])
         user_dct["reach_savings_goal_in"] = goal
     elif ratio > 28:
         for line in data['credit_lines']:

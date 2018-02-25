@@ -53,5 +53,5 @@ def reach_28(sum, debt_income_ratio, user):
     return total - sum
 
 
-def savings_goal(extra_money, savings_goal, savings): #returns estimated number of months at this current state it would take to reach savings
-    return (savings_goal - savings) / extra_money
+def savings_goal(extra_money, user): #returns estimated number of months at this current state it would take to reach savings
+    return (user["sgoals"] - user["savings"]) / extra_money
