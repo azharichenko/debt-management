@@ -9,7 +9,7 @@ def _get_top_three(credit_lines):
 def _sort_by_interest(credit_lines):
     credit_lines = list(credit_lines)
     for line in credit_lines:
-        if line['deferement']:
+        if line['deferment']:
             line['interest_rate'] = 0
     sorted_lines = sorted(credit_lines, key=lambda x: x['interest_rate'], reverse=True)
     return sorted_lines
