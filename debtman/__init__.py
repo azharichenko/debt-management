@@ -96,10 +96,11 @@ class LoanForm(FlaskForm):
     )
 
 
+data = {}
+
+
 @app.route('/')
 def index():
-    if session['user_info'] is None:
-        session['user_info'] = {'user': {}, 'lines': []}
     return render_template("home.html")
 
 
@@ -107,19 +108,16 @@ def index():
 def collect_basic_data():
     form = UserForm()
     if form.validate_on_submit():
-        session['user_info']['user'] = {'net_income': int(form.net_income.data)}
-        pprint(session)
-
+        if session['csrf_token'] not in data:
+            data[session['csrf_token']] = {'user': {}, 'lines': []}
+            data[session['csrf_token']]['user'] = {'net_income': int(form.net_income.data)}
         return redirect(url_for('collect_debt_data'))
     return render_template("userform.html", form=form)
 
 
 @app.route('/data', methods=('GET', 'POST'))
 def collect_debt_data():
-    print("think")
-    print(len(session['user_info']['lines']))
-    pprint(session)
-    if len(session['user_info']['lines']) == 0:
+    if len(data[session['csrf_token']]['lines']) == 0:
         return render_template("debtstart.html")
     return render_template("debt.html")
 
@@ -128,7 +126,7 @@ def collect_debt_data():
 def collect_credit_card():
     form = CreditCardForm()
     if form.validate_on_submit():
-        session['user_info']['lines'].append(
+        data[session['csrf_token']]['lines'].append(
             {
                 'name': form.name.data,
                 'interest_rate': form.interest_rate.data,
@@ -139,7 +137,6 @@ def collect_credit_card():
                 'deferment_end': None
             }
         )
-        pprint(session)
         return redirect('/data')
     return render_template("creditform.html", form=form)
 
@@ -148,7 +145,7 @@ def collect_credit_card():
 def collect_loan():
     form = LoanForm()
     if form.validate_on_submit():
-        session['user_info']['lines'].append(
+        data[session['csrf_token']]['lines'].append(
             {
                 'name': form.name.data,
                 'term': form.term_length.data,
