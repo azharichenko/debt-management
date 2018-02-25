@@ -4,7 +4,7 @@ COMPOUND_TYPE = {
     "annual": 1,
     "biannual": 2,
     "quarter": 4,
-    "month": 12
+    "monthly": 12
 }
 
 
