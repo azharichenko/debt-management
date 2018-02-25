@@ -34,7 +34,7 @@ def get_results(data):
         # if defered then ignore that credit line
         max = reach_28(sum, ratio, data['user'])
         user_dct["max_monthly_payments"] = max
-        # goal = savings_goal(max, sgoals, savings)
+        # goal = savings_goal(max, user)
         user_dct["reach_savings_goal_in"] = goal
     elif ratio > 28:
         for line in data['credit_lines']:
