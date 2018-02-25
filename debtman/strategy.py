@@ -23,13 +23,10 @@ def get_results(data):
         # remember to implement deferment
         # if defered then ignore that credit line
         max = reach_28(sum, ratio, data['user'])
-        return user_dct
-    elif ratio == 28:
-        return user_dct  # only show user sum_of_monthly_payment and debt_ratio
-    else:
+    elif ratio > 28:
         for line in data['credit_lines']:
             if "monthly_payment" in line:
                 line["monthly_payment"] = line["monthyl_payment"] / 2
         sum = sum_of_monthly_payments(data['credit_lines'])
         user_dct["sum_of_monthyl_payments"] = sum
-        return user_dct  # only show user sum_of_monthly_payment and debt_ratio
+    return user_dct 
