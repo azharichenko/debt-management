@@ -110,7 +110,7 @@ def collect_basic_data():
     form = UserForm()
     if form.validate_on_submit():
         if session['csrf_token'] not in data:
-            data[session['csrf_token']] = {'user': {}, 'lines': []}
+            data[session['csrf_token']] = {'user': {}, 'credit_lines': []}
             data[session['csrf_token']]['user'] = {'net_income': int(form.net_income.data)}
         return redirect(url_for('collect_debt_data'))
     return render_template("userform.html", form=form)
@@ -118,7 +118,7 @@ def collect_basic_data():
 
 @app.route('/data', methods=('GET', 'POST'))
 def collect_debt_data():
-    if len(data[session['csrf_token']]['lines']) == 0:
+    if len(data[session['csrf_token']]['credit_lines']) == 0:
         return render_template("debtstart.html")
     return render_template("debt.html")
 
@@ -127,13 +127,13 @@ def collect_debt_data():
 def collect_credit_card():
     form = CreditCardForm()
     if form.validate_on_submit():
-        data[session['csrf_token']]['lines'].append(
+        data[session['csrf_token']]['credit_lines'].append(
             {
-                'name': form.name.data,
-                'interest_rate': form.interest_rate.data,
-                'compound_rate': form.compound_type.data,
-                "balance": form.balance.data,
-                "min_payment": form.min_payment.data,
+                'name': str(form.name.data),
+                'interest_rate': float(form.interest_rate.data) / 100,
+                'compound_rate': str(form.compound_type.data),
+                "balance": float(form.balance.data),
+                "min_payment": float(form.min_payment.data),
                 'deferment': False,
                 'deferment_end': None
             }
@@ -146,13 +146,13 @@ def collect_credit_card():
 def collect_loan():
     form = LoanForm()
     if form.validate_on_submit():
-        data[session['csrf_token']]['lines'].append(
+        data[session['csrf_token']]['credit_lines'].append(
             {
-                'name': form.name.data,
-                'term': form.term_length.data,
-                'interest_rate': form.interest_rate.data,
-                'compound_rate': form.compound_type.data,
-                "balance": form.balance.data,
+                'name': str(form.name.data),
+                'term': int(form.term_length.data),
+                'interest_rate': float(form.interest_rate.data) / 100,
+                'compound_rate': str(form.compound_type.data),
+                "balance": float(form.balance.data),
                 "monthly_payment": None,
                 'deferment': False,
                 'deferment_end': None
