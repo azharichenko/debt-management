@@ -5,19 +5,22 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
-            <form class="form form-horizontal" method="POST" action="/setup">
-                {{ form.csrf_token }}
-                {% for field, errors in form.errors.items() %}
-                <div class="alert alert-error">
-                    {{ form[field].label }}: {{ ', '.join(errors) }}
+            {% for field, errors in form.errors.items() %}
+            <div class="alert alert-danger">
+                {{ form[field].label }}: {{ ', '.join(errors) }}
+            </div>
+            {% endfor %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form form-horizontal" method="POST" action="/setup">
+                        {{ form.csrf_token }}
+                        <p>{{ form.net_income.label }} {{ form.net_income(size=20) }}</p>
+                        <p>{{ form.savings.label }} {{ form.savings(size=20) }}</p>
+                        <p>{{ form.savings_goal.label }} {{ form.savings_goal(size=20) }}</p>
+                        <input type="submit" value="Go">
+                    </form>
                 </div>
-                {% endfor %}
-
-                <p>{{ form.net_income.label }} {{ form.net_income(size=20) }}</p>
-                <p>{{ form.savings.label }} {{ form.savings(size=20) }}</p>
-                <p>{{ form.savings_goal.label }} {{ form.savings_goal(size=20) }}</p>
-                <input type="submit" value="Go">
-            </form>
+            </div>
         </div>
     </div>
 </div>

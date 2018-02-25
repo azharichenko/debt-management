@@ -6,25 +6,29 @@
     <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
             {% for field, errors in form.errors.items() %}
-                <div class="alert alert-danger">
-                    {{ form[field].label }}: {{ ', '.join(errors) }}
+            <div class="alert alert-danger">
+                {{ form[field].label }}: {{ ', '.join(errors) }}
+            </div>
+            {% endfor %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form form-horizontal" method="POST" action="/credit">
+                        {{ form.csrf_token }}
+                        <p>{{ form.name.label }} {{ form.name(size=20) }}</p>
+                        <p>{{ form.balance.label }} {{ form.balance(size=20) }}</p>
+                        <p>{{ form.interest_rate.label }} {{ form.interest_rate(size=20) }}</p>
+                        <p>{{ form.min_payment.label }} {{ form.min_payment(size=20) }}</p>
+                        {{ form.compound_type.label }}
+                        {% for subfield in form.compound_type %}
+                        <tr>
+                            <td>{{ subfield }}</td>
+                            <td>{{ subfield.label }}</td>
+                        </tr>
+                        {% endfor %}
+                        <input type="submit" value="Go">
+                    </form>
                 </div>
-                {% endfor %}
-            <form class="form form-horizontal" method="POST" action="/credit">
-                {{ form.csrf_token }}
-                <p>{{ form.name.label }} {{ form.name(size=20) }}</p>
-                <p>{{ form.balance.label }} {{ form.balance(size=20) }}</p>
-                <p>{{ form.interest_rate.label }} {{ form.interest_rate(size=20) }}</p>
-                <p>{{ form.min_payment.label }} {{ form.min_payment(size=20) }}</p>
-                {{ form.compound_type.label }}
-                {% for subfield in form.compound_type %}
-                <tr>
-                    <td>{{ subfield }}</td>
-                    <td>{{ subfield.label }}</td>
-                </tr>
-                {% endfor %}
-                <input type="submit" value="Go">
-            </form>
+            </div>
         </div>
     </div>
 </div>
