@@ -7,6 +7,7 @@ from flask import (
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import (
+    StringField,
     IntegerField,
     DecimalField,
     RadioField
@@ -41,6 +42,10 @@ class UserForm(FlaskForm):
 
 
 class CreditCardForm(FlaskForm):
+    name = StringField(
+        "Enter name of bank: ",
+        validators=[DataRequired()]
+    )
     balance = DecimalField(
         "Enter current balance: ",
         validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
@@ -63,6 +68,10 @@ class CreditCardForm(FlaskForm):
 
 
 class LoanForm(FlaskForm):
+    name = StringField(
+        "Enter name of lender: ",
+        validators=[DataRequired()]
+    )
     balance = DecimalField(
         "Enter current balance: ",
         validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
@@ -110,7 +119,7 @@ def collect_basic_data():
 @app.route('/data', methods=('GET', 'POST'))
 def collect_debt_data():
     if len(session['user_info']['lines']) == 0:
-        return render_template("debtstart.html")
+        return render_template("creditform.html")
     return render_template("debt.html")
 
 
@@ -118,6 +127,17 @@ def collect_debt_data():
 def collect_credit_card():
     form = CreditCardForm()
     if form.validate_on_submit():
+        session['user_info']['lines'].append(
+            {
+                'name': form.name.data,
+                'interest_rate': form.interest_rate.data,
+                'compound_rate': form.compound_type.data,
+                "balance" : form.balance.data,
+                "min_payment": form.min_payment.data,
+                'deferment': False,
+                'deferment_end': None
+            }
+        )
         return redirect('/data')
     return render_template("creditform.html", form=form)
 
@@ -126,6 +146,19 @@ def collect_credit_card():
 def collect_loan():
     form = LoanForm()
     if form.validate_on_submit():
+        session['user_info']['lines'].append(
+            {
+                'name': form.name.data,
+                'term': form.term_length.data,
+                'interest_rate': form.interest_rate.data,
+                'compound_rate': form.compound_type.data,
+                "balance": form.balance.data,
+                "monthly_payment": None,
+                'disbursement_date': None,
+                'deferment': False,
+                'deferment_end': None
+            }
+        )
         return redirect('/data')
     return render_template("loanform.html", form=form)
 
