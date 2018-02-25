@@ -32,7 +32,7 @@ def get_results(data):
         user_dct["max_monthly_payments"] = max
         goal = savings_goal(max, data["user"])
         user_dct["reach_savings_goal_in"] = goal
-        user_dct["advice"] = "Please make at least the following monthly payments. Additionally, deposit an amount that is as close to the max monthly payments(" + str(user_dct['max_monthly_payments'])+ ") into a savings account or the loan with the highest interest rate."
+        user_dct["advice"] = "Please make at least the following monthly payments. Additionally, deposit an amount that is as close to the max monthly payments into a savings account or the loan with the highest interest rate."
     elif ratio > 28:
         for line in data['credit_lines']:
             if "monthly_payment" in line:
