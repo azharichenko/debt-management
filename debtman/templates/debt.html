@@ -7,7 +7,18 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <table class="table table-striped">
-                    ...
+                     <tr>
+                        <th>Account Name</th>
+                        <th>Balance</th>
+                        <th>Interest</th>
+                    </tr>
+                    {% for line in data.credit_lines %}
+                        <tr>
+                            <th>{{ line.name }}</th>
+                            <th>${{ line.balance }}</th>
+                            <th>{{ line.interest_rate * 100 }}%</th>
+                        </tr>
+                    {% endfor %}
                 </table>
             </div>
             <div class="panel-footer">
