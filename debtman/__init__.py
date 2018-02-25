@@ -28,16 +28,16 @@ app.secret_key = "super secret don't tell"
 
 class UserForm(FlaskForm):
     net_income = DecimalField(
-        "Net Income: ",
+        "Net Income: $",
         validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
     # Currently not being implemented
     savings = DecimalField(
-        "Current Total Savings: "  # ,
+        "Current Total Savings: $"  # ,
         # validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
     savings_goal = DecimalField(
-        "Savings Goal: "  # ,
+        "Savings Goal: $"  # ,
         # validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
 

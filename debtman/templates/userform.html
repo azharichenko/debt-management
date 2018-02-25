@@ -7,7 +7,7 @@
         <div class="col-xs-8 col-xs-offset-2">
             {% for field, errors in form.errors.items() %}
             <div class="alert alert-danger">
-                {{ form[field].label }}: {{ ', '.join(errors) }}
+                {{ form[field].label }} {{ ', '.join(errors) }}
             </div>
             {% endfor %}
             <div class="panel panel-default">
