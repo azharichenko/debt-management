@@ -7,6 +7,7 @@ def _get_top_three(credit_lines):
     top_three = sorted_lines[:3] if len(sorted_lines) >= 3 else sorted_lines
     return top_three
 
+
 def _sort_by_interest(credit_lines):
     credit_lines = list(credit_lines)
     for line in credit_lines:
@@ -24,8 +25,8 @@ def get_results(data):
     user_dct = {"sum_of_monthly_payments": sum,
                 "debt_ratio": ratio,
                 "max_monthly_payments": max,
-                "top_3_lines": _get_top_three(data['credit_lines'])
-                "reach_savings_goal_in":goal
+                "top_3_lines": _get_top_three(data['credit_lines']),
+                "reach_savings_goal_in": goal
                 }
     if ratio < 28:
         # find 3 lines of credit with highest interest rate and add to user_dct and return to prioritize
@@ -42,4 +43,4 @@ def get_results(data):
                 line["monthly_payment"] = line["monthyl_payment"] / 2
         sum = sum_of_monthly_payments(data['credit_lines'])
         user_dct["sum_of_monthyl_payments"] = sum
-    return user_dct 
+    return user_dct

@@ -18,6 +18,7 @@ from wtforms.validators import (
     NumberRange
 )
 from pprint import pprint
+from debtman.strategy import  get_results
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -164,4 +165,5 @@ def collect_loan():
 
 @app.route('/final')
 def strategy():
-    return render_template("final.html")
+    results = get_results(data[session['csrf_token']])
+    return render_template("final.html", result=results)
