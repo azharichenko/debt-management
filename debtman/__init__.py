@@ -14,7 +14,8 @@ from wtforms import (
 )
 from wtforms.validators import (
     DataRequired,
-    NumberRange
+    NumberRange,
+    Optional
 )
 from pprint import pprint
 
@@ -26,17 +27,17 @@ app.secret_key = "super secret don't tell"
 
 class UserForm(FlaskForm):
     net_income = DecimalField(
-        "Net Income: "#,
-       # validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
+        "Net Income: ",
+        validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
     # Currently not being implemented
     savings = DecimalField(
         "Current Total Savings: "#,
-       # validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
+        #validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
     savings_goal = DecimalField(
-        "Savings Goal: "#,
-      #  validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
+        "Savings Goal: " #,
+        #validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
 
 
@@ -61,7 +62,8 @@ class CreditCardForm(FlaskForm):
     )
     compound_type = RadioField(
         "Select compound type: ",
-        choices=[('annual', "Annually"), ('biannual', "Biannually"), ('quarter', "Quarterly"), ('monthly', "Monthly"), ('continous', 'Continously')],
+        choices=[('annual', "Annually"), ('biannual', "Biannually"), ('quarter', "Quarterly"), ('monthly', "Monthly"),
+                 ('continous', 'Continously')],
         # Excluding compounded continously
         validators=[DataRequired()]
     )
@@ -84,7 +86,8 @@ class LoanForm(FlaskForm):
     )
     compound_type = RadioField(
         "Select compound type: ",
-        choices=[('annual', "Annually"),('biannual', "Biannually"), ('quarter', "Quarterly"), ('monthly', "Monthly"), ('continous', 'Continously')],  # Excluding compounded continously
+        choices=[('annual', "Annually"), ('biannual', "Biannually"), ('quarter', "Quarterly"), ('monthly', "Monthly"),
+                 ('continous', 'Continously')],  # Excluding compounded continously
         validators=[DataRequired()]
     )
     term_length = IntegerField(
@@ -126,7 +129,7 @@ def collect_credit_card():
                 'name': form.name.data,
                 'interest_rate': form.interest_rate.data,
                 'compound_rate': form.compound_type.data,
-                "balance" : form.balance.data,
+                "balance": form.balance.data,
                 "min_payment": form.min_payment.data,
                 'deferment': False,
                 'deferment_end': None
