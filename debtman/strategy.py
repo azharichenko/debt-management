@@ -37,7 +37,7 @@ def get_results(data):
         user_dct["max_monthly_payments"] = max
         goal = savings_goal(max, data["user"])
         user_dct["reach_savings_goal_in"] = goal
-        user_dect["advice"] = "Please make at least the following monthly payments. Additionally,....."
+        user_dct["advice"] = "Please make at least the following monthly payments. Additionally,....."
     elif ratio > 28:
         for line in data['credit_lines']:
             if "monthly_payment" in line:
