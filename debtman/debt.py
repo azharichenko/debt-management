@@ -50,7 +50,7 @@ def find_ratio(user, sum):  # needs sum monthly payments from each debt item and
 
 def reach_28(sum, debt_income_ratio, user):
     total = 28 / user["net_income"]
-    return total - sum
+    return sum - total
 
 
 def savings_goal(extra_money, user): #returns estimated number of months at this current state it would take to reach savings
