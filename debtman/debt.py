@@ -28,11 +28,11 @@ def sum_of_monthly_payments(credit_lines): #takes dictionary and calculates sum 
 def loan_min_payment(balance, term, monthly_debt): #calculates the minimum loan payment to pay it off before term ends
     return (balance / term) + monthly_debt
 
-def find_Ratio(user, sum): #needs sum monthly payments from each debt item and net_income, finds debt/income
+def find_ratio(user, sum): #needs sum monthly payments from each debt item and net_income, finds debt/income
     return sum / user["net_income"]
 
 """
-def Reach_28(): #
+def reach_28(): #
     ...
     while ratio < 28 || 
         if "min_payment" in line:
