@@ -1,15 +1,13 @@
-from . import sum_of_monthly_payments
-from . import find_ratio
-from . import reach_28
+from .debt import sum_of_monthly_payments, find_ratio, reach_28
 
-def strategy(credit_lines):
+def get_results(credit_lines):
 	sum = sum_of_monthly_payments(credit_lines)
 	ratio = find_ratio(user, sum)
 	max = 0
 	user_dct = {"sum_of_monthly_payments":sum,
 		    "debt_ratio":ratio,
-		    "max_monthly_payments":max
-		    "top_3_lines":?????????
+		    "max_monthly_payments":max,
+		    "top_3_lines": []  # Get top three
 		   }
 	if(ratio < 28):
 		#find 3 lines of credit with highest interest rate and add to user_dct and return to prioritize

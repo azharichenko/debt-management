@@ -82,12 +82,12 @@ class LoanForm(FlaskForm):
         "Enter term length (in months): ",
         validators=[DataRequired(), NumberRange(min=1, message="Please enter a value above 1")]
     )
-    dispersement_month = IntegerField(
-        "Enter dispersement month: ",
+    disbursement_month = IntegerField(
+        "Enter disbursement month: ",
         validators=[DataRequired(), NumberRange(min=1, max=12, message="Value must be in range of 1 to 12")]
     )
-    dispersement_year = IntegerField(
-        "Enter dispersement year: ",
+    disbursement_year = IntegerField(
+        "Enter disbursement year: ",
         validators=[DataRequired(),
                     NumberRange(min=1970, max=date.year, message="Must be in range from 1970 to current year")]
     )
