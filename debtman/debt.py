@@ -29,7 +29,7 @@ def sum_of_monthly_payments(
             total += line["min_payment"]
         else:
             # if the deferment is true then for interest rate send in 0
-            if line["derferment"]:
+            if line["deferment"]:
                 line["monthly_payment"] = loan_min_payment(line["balance"], line["term"], convert_dn_monthly(
                     debt_per_compound(line["balance"], 0, line["compound_rate"]), line["compound_rate"]))
                 total += line["monthly_payment"]
