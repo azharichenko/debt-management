@@ -5,15 +5,13 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
-            <form class="form form-horizontal" method="POST" action="/loan">
-                {{ form.csrf_token }}
-                {% for field, errors in form.errors.items() %}
-                <div class="alert alert-error">
+            {% for field, errors in form.errors.items() %}
+                <div class="alert alert-danger">
                     {{ form[field].label }}: {{ ', '.join(errors) }}
                 </div>
                 {% endfor %}
-
-
+            <form class="form form-horizontal" method="POST" action="/loan">
+                {{ form.csrf_token }}
                 <p>{{ form.name.label }} {{ form.name(size=20) }}</p>
                 <p>{{ form.balance.label }} {{ form.balance(size=20) }}</p>
                 <p>{{ form.interest_rate.label }} {{ form.interest_rate(size=20) }}</p>

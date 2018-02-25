@@ -17,7 +17,6 @@ from wtforms.validators import (
     NumberRange,
     Optional
 )
-from pprint import pprint
 
 app = Flask(__name__)
 Bootstrap(app)
