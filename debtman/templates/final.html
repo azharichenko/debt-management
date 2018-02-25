@@ -21,7 +21,7 @@
                     {% for line in result.credit_lines %}
                     <tr>
                         <th>{{ line.name }}</th>
-                        <th>{{ "{:,.2f}%".format(line.interest_rate * 100) }}%</th>
+                        <th>{{ "{:,.2f}%".format(line.interest_rate * 100) }}</th>
                         <th>{{ "${:,.2f}".format(line.balance) }}</th>
                         {% if 'min_payment' in line %}
                         <th>{{ "${:,.2f}".format(line.min_payment) }}</th>
