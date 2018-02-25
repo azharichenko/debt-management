@@ -21,8 +21,7 @@ def convert_dn_monthly(debt_per_compounding,
     return debt_per_compounding / (12 / COMPOUND_TYPE[compound_rate])
 
 
-def sum_of_monthly_payments(
-        credit_lines):  # takes dictionary and calculates sum of the recommended monthly and min payments
+def sum_of_monthly_payments(credit_lines):  # takes dictionary and calculates sum of the recommended monthly and min payments
     total = 0
     for line in credit_lines:
         if "min_payment" in line:

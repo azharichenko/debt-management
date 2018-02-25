@@ -107,6 +107,9 @@ def index():
 
 @app.route('/setup', methods=('GET', 'POST'))
 def collect_basic_data():
+    if 'csrf_token' in session:
+        if session['csrf_token'] in data:
+            data[session['csrf_token']] = {'user': {}, 'credit_lines': []}
     form = UserForm()
     if form.validate_on_submit():
         if session['csrf_token'] not in data:
