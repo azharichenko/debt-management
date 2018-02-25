@@ -14,6 +14,8 @@ def strategy(credit_lines):
 	if(ratio < 28):
 		#find 3 lines of credit with highest interest rate and add to user_dct and return to prioritize
 		#make an array where the question lines are
+		#remember to implement deferment
+		#if defered then ignore that credit line
 		max = reach_28(sum, ratio, user)
 		return user_dct
 	elif(ratio == 28):
