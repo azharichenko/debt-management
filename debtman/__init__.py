@@ -61,7 +61,7 @@ class CreditCardForm(FlaskForm):
     )
     compound_type = RadioField(
         "Select compound type: ",
-        choices=[('annual', "Annually"), ('biannual', "Biannually"), ('quarter', "Quarterly"), ('monthly', "Monthly")],
+        choices=[('annual', "Annually"), ('biannual', "Biannually"), ('quarter', "Quarterly"), ('monthly', "Monthly"), ('continous', 'Continously')],
         # Excluding compounded continously
         validators=[DataRequired()]
     )
@@ -84,7 +84,7 @@ class LoanForm(FlaskForm):
     )
     compound_type = RadioField(
         "Select compound type: ",
-        choices=[('annual', "Annually"),('biannual', "Biannually"), ('quarter' "Quarterly"), ('monthly', "Monthly")],  # Excluding compounded continously
+        choices=[('annual', "Annually"),('biannual', "Biannually"), ('quarter', "Quarterly"), ('monthly', "Monthly"), ('continous', 'Continously')],  # Excluding compounded continously
         validators=[DataRequired()]
     )
     term_length = IntegerField(

@@ -3,17 +3,20 @@
 
 {% block content %}
 <div class="container">
-  <div class="row">
-    <div class="col-xs-8 col-xs-offset-2">
-      <form class="form form-horizontal" method="POST" action="/setup">
-        {{ form.csrf_token }}
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+            <form class="form form-horizontal" method="POST" action="/setup">
+                {{ form.csrf_token }}
+                {% for error in form.name.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
 
-        {{ form.net_income.label }} {{ form.net_income(size=20) }}
-        {{ form.savings.label }} {{ form.savings(size=20) }}
-        {{ form.savings_goal.label }} {{ form.savings_goal(size=20) }}
-        <input type="submit" value="Go">
-      </form>
+                <p>{{ form.net_income.label }} {{ form.net_income(size=20) }}</p>
+                <p>{{ form.savings.label }} {{ form.savings(size=20) }}</p>
+                <p>{{ form.savings_goal.label }} {{ form.savings_goal(size=20) }}</p>
+                <input type="submit" value="Go">
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}
