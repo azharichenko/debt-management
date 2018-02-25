@@ -12,12 +12,13 @@
             {% endfor %}
             <div class="panel panel-default">
                 <div class="panel-body">
+                    <b><h6>Please enter your net income(income after taxes), you current savings and your savings goal for the future</h6></b>
                     <form class="form form-horizontal" method="POST" action="/setup">
                         {{ form.csrf_token }}
                         <p>{{ form.net_income.label }} {{ form.net_income(size=20) }}</p>
                         <p>{{ form.savings.label }} {{ form.savings(size=20) }}</p>
                         <p>{{ form.savings_goal.label }} {{ form.savings_goal(size=20) }}</p>
-                        <input type="submit" value="Go">
+                        <input class="btn btn-primary" style="float:right" type="submit" value="Submit">
                     </form>
                 </div>
             </div>
