@@ -5,10 +5,12 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
-           <h1>Our Recommendations:</h1>
+           <h3>Our Recommendations:</h3>
             {% for line in result.top_3_lines %}
               <p>{{ line.name }} : ${{ line.balance }}</p>
             {% endfor %}
+            <h3>SOME ADVICES</h3>
+            <p></p>
         </div>
     </div>
 </div>

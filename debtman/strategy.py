@@ -1,5 +1,6 @@
 from debtman.debt import sum_of_monthly_payments, find_ratio, reach_28
 
+
 def _get_top_three(credit_lines):
     sorted_lines = _sort_by_interest(credit_lines)
     top_three = sorted_lines[:3] if len(sorted_lines) >= 3 else sorted_lines
@@ -38,7 +39,7 @@ def get_results(data):
     elif ratio > 28:
         for line in data['credit_lines']:
             if "monthly_payment" in line:
-                line["monthly_payment"] = line["monthyl_payment"] / 2
+                line["monthly_payment"] = line["monthly_payment"] / 2
         sum = sum_of_monthly_payments(data['credit_lines'])
-        user_dct["sum_of_monthyl_payments"] = sum
+        user_dct["sum_of_monthly_payments"] = sum
     return user_dct
