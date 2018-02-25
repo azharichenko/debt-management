@@ -26,6 +26,7 @@ def get_results(data):
                 "max_monthly_payments": max,
                 "top_3_lines": _get_top_three(data['credit_lines']),
                 "reach_savings_goal_in": goal
+                "advice": "Stick to the advised plan"
                 }
     if ratio < 28:
         # find 3 lines of credit with highest interest rate and add to user_dct and return to prioritize
@@ -36,6 +37,7 @@ def get_results(data):
         user_dct["max_monthly_payments"] = max
         goal = savings_goal(max, data["user"])
         user_dct["reach_savings_goal_in"] = goal
+        user_dect["advice"] = "Add extra money that is left to either a savings account or the loan with the highest interest"
     elif ratio > 28:
         for line in data['credit_lines']:
             if "monthly_payment" in line:
