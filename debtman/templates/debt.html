@@ -15,8 +15,8 @@
                     {% for line in data.credit_lines %}
                         <tr>
                             <th>{{ line.name }}</th>
-                            <th>${{ line.balance }}</th>
-                            <th>{{ line.interest_rate * 100 }}%</th>
+                            <th>{{ "${:,.2f}".format(line.balance) }}</th>
+                            <th>{{ "{:,.2f}%".format(line.interest_rate * 100) }}%</th>
                         </tr>
                     {% endfor %}
                 </table>
