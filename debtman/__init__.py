@@ -17,7 +17,6 @@ from wtforms.validators import (
     DataRequired,
     NumberRange
 )
-from pprint import pprint
 from debtman.strategy import  get_results
 
 app = Flask(__name__)
@@ -44,28 +43,26 @@ class UserForm(FlaskForm):
 
 class CreditCardForm(FlaskForm):
     name = StringField(
-        "Enter name of bank: ",
+        "Enter name of card or bank: ",
         validators=[DataRequired()]
     )
     balance = DecimalField(
-        "Enter current balance: ",
+        "Enter current balance: $",
         validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
-    # TODO(azharichenko): divide by 100
     # Assume no zero APR yet
     interest_rate = DecimalField(
-        "Enter interest rate: ",
+        "Enter interest rate(as percent): ",
         validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
     min_payment = DecimalField(
-        "Enter minimum payment: ",
+        "Enter minimum payment: $",
         validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
     compound_type = RadioField(
         "Select compound type: ",
         choices=[('annual', "Annually"), ('biannual', "Biannually"), ('quarter', "Quarterly"), ('monthly', "Monthly"),
                  ('continous', 'Continously')],
-        # Excluding compounded continously
         validators=[DataRequired()]
     )
 
@@ -76,19 +73,18 @@ class LoanForm(FlaskForm):
         validators=[DataRequired()]
     )
     balance = DecimalField(
-        "Enter current balance: ",
+        "Enter current balance: $",
         validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
-    # TODO(azharichenko): divide by 100
     # Assume no zero APR yet
     interest_rate = DecimalField(
-        "Enter interest rate: ",
+        "Enter interest rate: $",
         validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
     compound_type = RadioField(
         "Select compound type: ",
         choices=[('annual', "Annually"), ('biannual', "Biannually"), ('quarter', "Quarterly"), ('monthly', "Monthly"),
-                 ('continous', 'Continously')],  # Excluding compounded continously
+                 ('continous', 'Continously')],
         validators=[DataRequired()]
     )
     term_length = IntegerField(
@@ -127,7 +123,7 @@ def collect_basic_data():
 def collect_debt_data():
     if len(data[session['csrf_token']]['credit_lines']) == 0:
         return render_template("debtstart.html")
-    return render_template("debt.html")
+    return render_template("debt.html", data=data[session['csrf_token']])
 
 
 @app.route('/credit', methods=('GET', 'POST'))
@@ -165,7 +161,6 @@ def collect_loan():
                 'deferment_end': None
             }
         )
-        pprint(session)
         return redirect('/data')
     return render_template("loanform.html", form=form)
 

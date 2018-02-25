@@ -12,6 +12,7 @@
             {% endfor %}
             <div class="panel panel-default">
                 <div class="panel-body">
+                    <b><h6>Please enter the details about your loan account below.</h6></b>
                     <form class="form form-horizontal" method="POST" action="/loan">
                         {{ form.csrf_token }}
                         <p>{{ form.name.label }} {{ form.name(size=20) }}</p>
@@ -25,7 +26,7 @@
                             <td>{{ subfield.label }}</td>
                         </tr>
                         {% endfor %}
-                        <input type="submit" value="Go">
+                        <input class="btn btn-primary" style="float:right" type="submit" value="Submit">
                     </form>
                 </div>
             </div>
