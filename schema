@@ -8,6 +8,7 @@ input data:
   "credit_lines": [
     # Credit Card
     {
+      "name": "Paypal Credit",
       "min_payment": 10,
       "interest_rate": 0.1999,
       "compound_rate": "annual",
@@ -17,6 +18,7 @@ input data:
     },
     # Loans
     {
+      "name": "Citizens Bank Student Loan",
       "monthly_payment": 0, #This will be reassigned to proper value in debt.py sum_of_monthly_payments
       "term": 5 * 12, # Term should be in months
       "interest_rate": 0.07,
