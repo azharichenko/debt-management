@@ -4,6 +4,8 @@ input data:
   "user": {
     # Possibly add savings and savings goal
     "net_income": 1000
+    "sgoals": 0,
+    "savings": 0
   },
   "credit_lines": [
     # Credit Card
