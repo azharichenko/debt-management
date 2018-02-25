@@ -114,7 +114,10 @@ def collect_basic_data():
     if form.validate_on_submit():
         if session['csrf_token'] not in data:
             data[session['csrf_token']] = {'user': {}, 'credit_lines': []}
-            data[session['csrf_token']]['user'] = {'net_income': int(form.net_income.data)}
+            data[session['csrf_token']]['user'] = {
+                'net_income': float(form.net_income.data),
+                "savings_goal": float(form.savings_goal.data)
+            }
         return redirect(url_for('collect_debt_data'))
     return render_template("userform.html", form=form)
 
