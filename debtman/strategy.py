@@ -3,7 +3,8 @@ from debtman.debt import sum_of_monthly_payments, find_ratio, reach_28
 
 def _get_top_three(credit_lines):
     data = [(line['interest_rate'], line) for line in credit_lines]
-    top_three = sorted(data, key=lambda x: x[0], reverse=True)[:3]
+    sorted_lines = sorted(data, key=lambda x: x[0], reverse=True)[:3]
+    top_three = sorted_lines[:3] if len(sorted_lines) >= 3 else sorted_lines
     return top_three
 
 
