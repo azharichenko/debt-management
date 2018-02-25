@@ -1,4 +1,4 @@
-from debtman.debt import sum_of_monthly_payments, find_ratio, reach_28
+from debtman.debt import sum_of_monthly_payments, find_ratio, reach_28, savings_goal
 
 
 def _get_top_three(credit_lines):
