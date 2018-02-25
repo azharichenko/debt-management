@@ -108,7 +108,7 @@ def collect_basic_data():
             data[session['csrf_token']] = {'user': {}, 'credit_lines': []}
     form = UserForm()
     if form.validate_on_submit():
-        if session['csrf_token'] not in data:
+        if session['csrf_token'] not in data or 'net_income' not in data[session['csrf_token']]['user']:
             data[session['csrf_token']] = {'user': {}, 'credit_lines': []}
             data[session['csrf_token']]['user'] = {
                 'net_income': float(form.net_income.data),
