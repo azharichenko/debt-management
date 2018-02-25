@@ -25,7 +25,7 @@ def get_results(data):
                 "debt_ratio": ratio,
                 "max_monthly_payments": max,
                 "top_3_lines": _get_top_three(data['credit_lines']),
-                "reach_savings_goal_in": goal
+                "reach_savings_goal_in": goal,
                 "advice": "Stick to the advised plan"
                 }
     if ratio < 28:
