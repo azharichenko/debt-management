@@ -8,8 +8,6 @@
       <form class="form form-horizontal" method="POST" action="/setup">
         {{ form.csrf_token }}
 
-        {{ form.form_errors(form) }}
-
         {{ form.net_income.label }} {{ form.net_income(size=20) }}
         {{ form.savings.label }} {{ form.savings(size=20) }}
         {{ form.savings_goal.label }} {{ form.savings_goal(size=20) }}

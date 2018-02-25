@@ -14,10 +14,9 @@ from wtforms import (
 )
 from wtforms.validators import (
     DataRequired,
-    NumberRange,
-    Optional
+    NumberRange
 )
-from datetime import date
+from pprint import pprint
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -27,17 +26,17 @@ app.secret_key = "super secret don't tell"
 
 class UserForm(FlaskForm):
     net_income = DecimalField(
-        "Net Income: ",
-        validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
+        "Net Income: "#,
+       # validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
     # Currently not being implemented
     savings = DecimalField(
-        "Current Total Savings: ",
-        validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
+        "Current Total Savings: "#,
+       # validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
     savings_goal = DecimalField(
-        "Savings Goal: ",
-        validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
+        "Savings Goal: "#,
+      #  validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
 
 
@@ -62,7 +61,8 @@ class CreditCardForm(FlaskForm):
     )
     compound_type = RadioField(
         "Select compound type: ",
-        choices=["Annually", "Biannually", "Quarterly", "Monthly"],  # Excluding compounded continously
+        choices=[('annual', "Annually"), ('biannual', "Biannually"), ('quarter', "Quarterly"), ('monthly', "Monthly")],
+        # Excluding compounded continously
         validators=[DataRequired()]
     )
 
@@ -84,21 +84,12 @@ class LoanForm(FlaskForm):
     )
     compound_type = RadioField(
         "Select compound type: ",
-        choices=["Annually", "Biannually", "Quarterly", "Monthly"],  # Excluding compounded continously
+        choices=[('annual', "Annually"),('biannual', "Biannually"), ('quarter' "Quarterly"), ('monthly', "Monthly")],  # Excluding compounded continously
         validators=[DataRequired()]
     )
     term_length = IntegerField(
         "Enter term length (in months): ",
         validators=[DataRequired(), NumberRange(min=1, message="Please enter a value above 1")]
-    )
-    disbursement_month = IntegerField(
-        "Enter disbursement month: ",
-        validators=[DataRequired(), NumberRange(min=1, max=12, message="Value must be in range of 1 to 12")]
-    )
-    disbursement_year = IntegerField(
-        "Enter disbursement year: ",
-        validators=[DataRequired(),
-                    NumberRange(min=1970, max=date.year, message="Must be in range from 1970 to current year")]
     )
 
 
@@ -112,6 +103,7 @@ def index():
 def collect_basic_data():
     form = UserForm()
     if form.validate_on_submit():
+        session['user_info']['user'] = {'net_income': form.net_income.data}
         return redirect('/data')
     return render_template("userform.html", form=form)
 
@@ -119,7 +111,9 @@ def collect_basic_data():
 @app.route('/data', methods=('GET', 'POST'))
 def collect_debt_data():
     if len(session['user_info']['lines']) == 0:
-        return render_template("creditform.html")
+        pprint(session['user_info'])
+        return redirect("/credit")
+        # return render_template("debtstart.html")
     return render_template("debt.html")
 
 
@@ -154,7 +148,6 @@ def collect_loan():
                 'compound_rate': form.compound_type.data,
                 "balance": form.balance.data,
                 "monthly_payment": None,
-                'disbursement_date': None,
                 'deferment': False,
                 'deferment_end': None
             }
