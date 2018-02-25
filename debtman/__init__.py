@@ -114,9 +114,7 @@ def collect_basic_data():
 @app.route('/data', methods=('GET', 'POST'))
 def collect_debt_data():
     if len(session['user_info']['lines']) == 0:
-        pprint(session['user_info'])
-        return redirect("/credit")
-        # return render_template("debtstart.html")
+        return render_template("debtstart.html")
     return render_template("debt.html")
 
 

@@ -1,7 +1,16 @@
 <!--Start page to entering debt information into web app-->
 {% extends "base.html" %}
 {% block content %}
-<h1>Surprise</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-2 col-xs-offset-4">
+            <p><a class="btn btn-primary btn-lg" href="{{ url_for(" collect_credit_card") }}" role="button">Add Credit Card Account</a></p>
+        </div>
+        <div class="col-xs-2>
+            <p><a class="btn btn-primary btn-lg" href="{{ url_for("collect_loan") }}" role="button">Add Loan Accounts</a></p>
+    </div>
+</div>
+</div>
 {% endblock %}
  
 
