@@ -84,7 +84,7 @@ class LoanForm(FlaskForm):
     compound_type = RadioField(
         "Select compound type: ",
         choices=[('annual', "Annually"), ('biannual', "Biannually"), ('quarter', "Quarterly"), ('monthly', "Monthly"),
-                 ('continous', 'Continously')],
+                 ('continuous', 'Continuously')],
         validators=[DataRequired()]
     )
     term_length = IntegerField(
