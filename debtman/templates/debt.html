@@ -5,16 +5,16 @@
 <div class="container">
     <div class="row">
         <div class="panel panel-default">
-            <div class="page-header" >
-                <a class="btn btn-primary btn-lg" href="{{ url_for("collect_credit_card") }}" role="button">Add Credit Card Account</a>
-                <a class=" btn btn-primary btn-lg" href="{{ url_for("collect_loan") }}" role="button">Add Loan Account</a>
-            </div>
             <div class="panel-body">
-                Table Coming Soon
+                <table class="table table-striped">
+                    ...
+                </table>
             </div>
             <div class="panel-footer">
                 <a class="btn btn-primary btn-lg" href="{{ url_for("strategy") }}" role="button">Finish</a>
                 <a class="btn btn-primary btn-lg" href="{{ url_for("collect_basic_data") }}" role="button">Restart</a>
+                <a class="btn btn-primary btn-lg" href="{{ url_for("collect_credit_card") }}" role="button">Add Credit Card Account</a>
+                <a class=" btn btn-primary btn-lg" href="{{ url_for("collect_loan") }}" role="button">Add Loan Account</a>
             </div>
         </div>
     </div>
