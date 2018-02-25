@@ -53,7 +53,7 @@ class CreditCardForm(FlaskForm):
     # Assume no zero APR yet
     interest_rate = DecimalField(
         "Enter interest rate(as percent): ",
-        validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
+        validators=[DataRequired(), NumberRange(min=0.01, max=100.00, message="Please enter a value above 0.01")]
     )
     min_payment = DecimalField(
         "Enter minimum payment: $",
@@ -79,7 +79,7 @@ class LoanForm(FlaskForm):
     # Assume no zero APR yet
     interest_rate = DecimalField(
         "Enter interest rate: $",
-        validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
+        validators=[DataRequired(), NumberRange(min=0.01, max=100.00, message="Please enter a value above 0.01")]
     )
     compound_type = RadioField(
         "Select compound type: ",
