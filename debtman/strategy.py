@@ -24,7 +24,7 @@ def get_results(data):
     user_dct = {"sum_of_monthly_payments": sum,
                 "debt_ratio": ratio,
                 "max_monthly_payments": max,
-                "top_3_lines": _get_top_three(data['credit_lines'])#,
+                "top_3_lines": _get_top_three(data['credit_lines']),
                 "reach_savings_goal_in": goal
                 }
     if ratio < 28:
