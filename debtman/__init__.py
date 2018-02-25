@@ -7,49 +7,97 @@ from flask import (
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import (
-    StringField,
-    DecimalField
+    IntegerField,
+    DecimalField,
+    RadioField
 )
 from wtforms.validators import (
     DataRequired,
     NumberRange,
     Optional
 )
+from datetime import date
 
 app = Flask(__name__)
 Bootstrap(app)
 
 app.secret_key = "super secret don't tell"
 
+
 class UserForm(FlaskForm):
     net_income = DecimalField(
-                "Net Income: ", 
-                validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
+        "Net Income: ",
+        validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
     # Currently not being implemented
     savings = DecimalField(
-                "Current Total Savings: ",
-                validators=[Optional] #, NumberRange(min=0.01, message="Please enter a value above 0.01")]
+        "Current Total Savings: ",
+        validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
     savings_goal = DecimalField(
-                "Savings Goal: ",
-                validators=[Optional] #, NumberRange(min=0.01, message="Please enter a value above 0.01")]
+        "Savings Goal: ",
+        validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
 
+
 class CreditCardForm(FlaskForm):
-    pass
+    balance = DecimalField(
+        "Enter current balance: ",
+        validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
+    )
+    # TODO(azharichenko): divide by 100
+    # Assume no zero APR yet
+    interest_rate = DecimalField(
+        "Enter interest rate: ",
+        validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
+    )
+    min_payment = DecimalField(
+        "Enter minimum payment: ",
+        validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
+    )
+    compound_type = RadioField(
+        "Select compound type: ",
+        choices=["Annually", "Biannually", "Quarterly", "Monthly"],  # Excluding compounded continously
+        validators=[DataRequired()]
+    )
+
 
 class LoanForm(FlaskForm):
-    pass
-
-
-
+    balance = DecimalField(
+        "Enter current balance: ",
+        validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
+    )
+    # TODO(azharichenko): divide by 100
+    # Assume no zero APR yet
+    interest_rate = DecimalField(
+        "Enter interest rate: ",
+        validators=[DataRequired(), NumberRange(min=0.01, message="Please enter a value above 0.01")]
+    )
+    compound_type = RadioField(
+        "Select compound type: ",
+        choices=["Annually", "Biannually", "Quarterly", "Monthly"],  # Excluding compounded continously
+        validators=[DataRequired()]
+    )
+    term_length = IntegerField(
+        "Enter term length (in months): ",
+        validators=[DataRequired(), NumberRange(min=1, message="Please enter a value above 1")]
+    )
+    dispersement_month = IntegerField(
+        "Enter dispersement month: ",
+        validators=[DataRequired(), NumberRange(min=1, max=12, message="Value must be in range of 1 to 12")]
+    )
+    dispersement_year = IntegerField(
+        "Enter dispersement year: ",
+        validators=[DataRequired(),
+                    NumberRange(min=1970, max=date.year, message="Must be in range from 1970 to current year")]
+    )
 
 
 @app.route('/')
 def index():
-    session['user_info'] = {'user':{}, 'lines': []}
+    session['user_info'] = {'user': {}, 'lines': []}
     return render_template("home.html")
+
 
 @app.route('/setup', methods=('GET', 'POST'))
 def collect_basic_data():
@@ -58,12 +106,30 @@ def collect_basic_data():
         return redirect('/data')
     return render_template("userform.html", form=form)
 
+
 @app.route('/data', methods=('GET', 'POST'))
 def collect_debt_data():
     if len(session['user_info']['lines']) == 0:
         return render_template("debtstart.html")
     return render_template("debt.html")
 
+
+@app.route('/credit', methods=('GET', 'POST'))
+def collect_credit_card():
+    form = CreditCardForm()
+    if form.validate_on_submit():
+        return redirect('/data')
+    return render_template("creditform.html", form=form)
+
+
+@app.route('/loan', methods=('GET', 'POST'))
+def collect_loan():
+    form = LoanForm()
+    if form.validate_on_submit():
+        return redirect('/data')
+    return render_template("loanform.html", form=form)
+
+
 @app.route('/final')
 def strategy():
-    return render_template("final.html") 
+    return render_template("final.html")
