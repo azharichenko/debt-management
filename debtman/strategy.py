@@ -1,12 +1,6 @@
 from debtman.debt import sum_of_monthly_payments, find_ratio, reach_28, savings_goal
 
 
-def _get_top_three(credit_lines):
-    sorted_lines = _sort_by_interest(credit_lines)
-    top_three = sorted_lines[:3] if len(sorted_lines) >= 3 else sorted_lines
-    return top_three
-
-
 def _sort_by_interest(credit_lines):
     credit_lines = list(credit_lines)
     for line in credit_lines:
@@ -24,7 +18,7 @@ def get_results(data):
     user_dct = {"sum_of_monthly_payments": sum,
                 "debt_ratio": ratio,
                 "max_monthly_payments": max,
-                "top_3_lines": _get_top_three(data['credit_lines']),
+                "credit_lines": _sort_by_interest(data['credit_lines']),
                 "reach_savings_goal_in": goal,
                 "advice": "Please follow the monthly payment provided for optimal results"
                 }

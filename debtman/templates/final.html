@@ -4,17 +4,38 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-xs-8 col-xs-offset-2">
-           <h3>Our Recommendations:</h3>
-            {% for line in result.top_3_lines %}
-              <p>{{ line.name }} : ${{ line.balance }}</p>
-            {% endfor %}
-            <h3>SOME ADVICE</h3>
-            <p>1) Talk to lenders about deferring loans</p>
-            <p>2) Consolidate debt/loans</p>
-            <p>3) Contact certified financial adviser</p>
-            <p>4) Get a freelance job to earn extra money to pay off loans</p>
-            <p>5) Minimize luxury expenses</p>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Our Recommendations:</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Account Name</th>
+                        <th>Interest</th>
+                        <th>Balance</th>
+                        <th>Monthly/Minimum Payment</th>
+                    </tr>
+                    {% for line in result.credit_lines %}
+                    <tr>
+                        <th>{{ line.name }}</th>
+                        <th>{{ line.interest_rate * 100 }}%</th>
+                        <th>${{ line.balance }}</th>
+                        {% if 'min_payment' in  line %}
+                        <th>${{ line.min_payment }}</th>
+                        {% else %}
+                        <th>${{ line.monthly.payment }}</th>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </table>
+                <h3>SOME ADVICE</h3>
+                <p>1) Talk to lenders about deferring loans</p>
+                <p>2) Consolidate debt/loans</p>
+                <p>3) Contact certified financial adviser</p>
+                <p>4) Get a freelance job to earn extra money to pay off loans</p>
+                <p>5) Minimize luxury expenses</p>
+            </div>
         </div>
     </div>
 </div>
