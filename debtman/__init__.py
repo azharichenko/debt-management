@@ -116,6 +116,7 @@ def collect_basic_data():
             data[session['csrf_token']] = {'user': {}, 'credit_lines': []}
             data[session['csrf_token']]['user'] = {
                 'net_income': float(form.net_income.data),
+                "savings": float(form.savings.data),
                 "savings_goal": float(form.savings_goal.data)
             }
         return redirect(url_for('collect_debt_data'))
