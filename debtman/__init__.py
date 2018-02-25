@@ -2,7 +2,8 @@ from flask import (
     Flask,
     render_template,
     session,
-    redirect
+    redirect,
+    url_for
 )
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
@@ -14,9 +15,9 @@ from wtforms import (
 )
 from wtforms.validators import (
     DataRequired,
-    NumberRange,
-    Optional
+    NumberRange
 )
+from pprint import pprint
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -31,12 +32,12 @@ class UserForm(FlaskForm):
     )
     # Currently not being implemented
     savings = DecimalField(
-        "Current Total Savings: "#,
-        #validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
+        "Current Total Savings: "  # ,
+        # validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
     savings_goal = DecimalField(
-        "Savings Goal: " #,
-        #validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
+        "Savings Goal: "  # ,
+        # validators=[Optional]  # , NumberRange(min=0.01, message="Please enter a value above 0.01")]
     )
 
 
@@ -97,7 +98,8 @@ class LoanForm(FlaskForm):
 
 @app.route('/')
 def index():
-    session['user_info'] = {'user': {}, 'lines': []}
+    if session['user_info'] is None:
+        session['user_info'] = {'user': {}, 'lines': []}
     return render_template("home.html")
 
 
@@ -105,13 +107,18 @@ def index():
 def collect_basic_data():
     form = UserForm()
     if form.validate_on_submit():
-        session['user_info']['user'] = {'net_income': form.net_income.data}
-        return redirect('/data')
+        session['user_info']['user'] = {'net_income': int(form.net_income.data)}
+        pprint(session)
+
+        return redirect(url_for('collect_debt_data'))
     return render_template("userform.html", form=form)
 
 
 @app.route('/data', methods=('GET', 'POST'))
 def collect_debt_data():
+    print("think")
+    print(len(session['user_info']['lines']))
+    pprint(session)
     if len(session['user_info']['lines']) == 0:
         return render_template("debtstart.html")
     return render_template("debt.html")
@@ -132,6 +139,7 @@ def collect_credit_card():
                 'deferment_end': None
             }
         )
+        pprint(session)
         return redirect('/data')
     return render_template("creditform.html", form=form)
 
@@ -152,6 +160,7 @@ def collect_loan():
                 'deferment_end': None
             }
         )
+        pprint(session)
         return redirect('/data')
     return render_template("loanform.html", form=form)
 
