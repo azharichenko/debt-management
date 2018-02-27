@@ -1,6 +1,8 @@
 # MTNDues 
 A Debt management and interest minimization tool
 
+[Click here for our improved version of this concept](https://github.com/azharichenko/debtman)
+
 ## Inspiration
 There were two behinds this web app. One was that pretty much all college students are in debt, and a lot of people in society are in debt. But most people don't understand how to pay off that debt in order to avoid paying a lot in interest per year. The second was there are apps like Intuit Mint that help show you all your debt, income, investments, etc. but when it comes to debt it doesn't present you a strategy to paying it off, so our app expands on that.
 
